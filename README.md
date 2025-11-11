@@ -2,7 +2,7 @@
 This repository contains the Java console application for the "Library of Stuff" project. The application is designed to manage a lending library for various household and workshop items.
 
 ## Sprint 2 Submission
-Deadline: [Enter Sprint 2 Deadline Here]
+Deadline: Monday, 24 November 2025
 
 This submission builds upon the Sprint 1 foundation by adding a complete, interactive booking system.
 
@@ -74,3 +74,4 @@ The program will no longer just print a static list. It will now show a menu and
 3. Return an Item
 4. Exit
 Please enter your choice (1-4):
+
