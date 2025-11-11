@@ -132,31 +132,147 @@ public class Library {
      * Placeholder for the "Borrow Item" functionality.
      * TODO: Implement this for Sprint 2.
      */
+    /**
+     * Handles the process of borrowing an item.
+     * It shows available items, asks for an ID, validates it,
+     * and updates the item's status.
+     */
     private void borrowItem() {
         System.out.println("\n--- Borrow an Item ---");
-        System.out.println("[INFO] This functionality is not yet implemented.");
-        //
-        // Your logic will go here, e.g.:
-        // 1. Show a list of AVAILABLE items.
-        // 2. Ask the user to enter an Item ID.
-        // 3. Find the item in the allItems list.
-        // 4. If found and available, call item.setAvailable(false).
-        //
+
+        // 1. Show only available items.
+        // We use a helper method to keep this code clean.
+        // It returns 'true' if items were found, 'false' otherwise.
+        boolean hasAvailableItems = printAvailableItems();
+
+        if (!hasAvailableItems) {
+            // If no items are available, just return to the main menu.
+            return;
+        }
+
+        // 2. Ask the user for an ID
+        System.out.print("\nPlease enter the ID of the item you wish to borrow: ");
+        String itemIDToBorrow = inputScanner.nextLine().trim(); // .trim() removes extra spaces
+
+        // 3. Find the item
+        BorrowableItem itemToBorrow = null;
+        for (BorrowableItem item : allItems) {
+            // Use equalsIgnoreCase for a more robust check
+            if (item.getItemID().equalsIgnoreCase(itemIDToBorrow)) {
+                itemToBorrow = item;
+                break; // Stop looping once we find it
+            }
+        }
+
+        // 4. Check and update the item
+        if (itemToBorrow == null) {
+            // Case 1: Item ID does not exist
+            System.out.println("[ERROR] No item found with ID: " + itemIDToBorrow);
+        } else if (!itemToBorrow.isAvailable()) {
+            // Case 2: Item exists but is already on loan
+            System.out.println("[SORRY] '" + itemToBorrow.getName() + "' is already on loan.");
+        } else {
+            // Case 3: Success!
+            itemToBorrow.setAvailable(false);
+            System.out.println("\n[SUCCESS] You have borrowed: " + itemToBorrow.getName());
+            System.out.println("Please remember to use it safely!");
+        }
     }
 
     /**
-     * Placeholder for the "Return Item" functionality.
-     * TODO: Implement this for Sprint 2.
+     * A helper method that lists only the items that are currently available.
+     *
+     * @return true if available items were printed, false if none were found.
+     */
+    private boolean printAvailableItems() {
+        System.out.println("--- Items Available to Borrow ---");
+        boolean foundItems = false;
+
+        // Loop through all items and check their status
+        for (BorrowableItem item : allItems) {
+            if (item.isAvailable()) {
+                // We don't need the full print(). A simple line is better here.
+                System.out.printf("  [ID: %s] %s (%s)\n",
+                        item.getItemID(), item.getName(), item.getClass().getSimpleName());
+                foundItems = true;
+            }
+        }
+
+        if (!foundItems) {
+            System.out.println("Sorry, no items are currently available for loan.");
+        }
+
+        return foundItems; // Return whether we found anything
+    }
+
+    /**
+     * Handles the process of returning an item.
+     * It shows on-loan items, asks for an ID, validates it,
+     * and updates the item's status.
      */
     private void returnItem() {
         System.out.println("\n--- Return an Item ---");
-        System.out.println("[INFO] This functionality is not yet implemented.");
-        //
-        // Your logic will go here, e.g.:
-        // 1. Show a list of ON LOAN items.
-        // 2. Ask the user to enter an Item ID.
-        // 3. Find the item in the allItems list.
-        // 4. If found and on loan, call item.setAvailable(true).
-        //
+
+        // 1. Show only "On Loan" items.
+        // We use a new helper method to keep this code clean.
+        boolean hasOnLoanItems = printOnLoanItems();
+
+        if (!hasOnLoanItems) {
+            // If no items are on loan, just return to the main menu.
+            return;
+        }
+
+        // 2. Ask the user for an ID
+        System.out.print("\nPlease enter the ID of the item you are returning: ");
+        String itemIDToReturn = inputScanner.nextLine().trim();
+
+        // 3. Find the item
+        BorrowableItem itemToReturn = null;
+        for (BorrowableItem item : allItems) {
+            // Use equalsIgnoreCase for a more robust check
+            if (item.getItemID().equalsIgnoreCase(itemIDToReturn)) {
+                itemToReturn = item;
+                break; // Stop looping once we find it
+            }
+        }
+
+        // 4. Check and update the item
+        if (itemToReturn == null) {
+            // Case 1: Item ID does not exist
+            System.out.println("[ERROR] No item found with ID: " + itemIDToReturn);
+        } else if (itemToReturn.isAvailable()) {
+            // Case 2: Item exists but is already available
+            System.out.println("[INFO] That item '" + itemToReturn.getName() + "' is already in the library.");
+        } else {
+            // Case 3: Success!
+            itemToReturn.setAvailable(true);
+            System.out.println("\n[SUCCESS] Thank you for returning: " + itemToReturn.getName());
+        }
+    }
+
+    /**
+     * A helper method that lists only the items that are currently on loan.
+     *
+     * @return true if on-loan items were printed, false if none were found.
+     */
+    private boolean printOnLoanItems() {
+        System.out.println("--- Items Currently On Loan ---");
+        boolean foundItems = false;
+
+        // Loop through all items and check their status
+        for (BorrowableItem item : allItems) {
+            if (!item.isAvailable()) {
+                // We don't need the full print(). A simple line is better here.
+                System.out.printf("  [ID: %s] %s (%s)\n",
+                        item.getItemID(), item.getName(), item.getClass().getSimpleName());
+                foundItems = true;
+            }
+        }
+
+        if (!foundItems) {
+            System.out.println("No items are currently on loan.");
+        }
+
+        return foundItems; // Return whether we found anything
     }
 }
