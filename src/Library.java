@@ -66,6 +66,7 @@ public class Library {
             if (u.getUserId().equalsIgnoreCase(id)) {
                 this.activeUser = u;
                 System.out.println("Welcome, " + activeUser.getName() + "!");
+                System.out.println("Current Loyalty Points: " + activeUser.getLoyaltyPoints());
                 return;
             }
         }
@@ -112,7 +113,12 @@ public class Library {
                     // ASSOCIATION & AGGREGATION LOGIC
                     item.setBorrowedBy(activeUser); // Item knows User
                     activeUser.borrow(item);        // User knows Item
+
+                    // LOYALTY POINTS (Additional Feature)
+                    activeUser.addLoyaltyPoints(10);
+
                     System.out.println("Success! You borrowed " + item.getName());
+                    System.out.println("You earned 10 Loyalty Points! Total: " + activeUser.getLoyaltyPoints());
                 } else {
                     System.out.println("Item is not available.");
                 }

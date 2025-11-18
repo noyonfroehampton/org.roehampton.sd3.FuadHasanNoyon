@@ -6,11 +6,14 @@ public class User {
     private String name;
     // Aggregation: A User "has" a list of borrowed items
     private List<BorrowableItem> borrowedItems;
+    // Additional Feature: Loyalty Points
+    private int loyaltyPoints;
 
     public User(String userId, String name) {
         this.userId = userId;
         this.name = name;
         this.borrowedItems = new ArrayList<>();
+        this.loyaltyPoints = 0; // Start with 0 points
     }
 
     public String getUserId() {
@@ -31,5 +34,14 @@ public class User {
 
     public void returnItem(BorrowableItem item) {
         borrowedItems.remove(item);
+    }
+
+    // --- Loyalty Points Methods ---
+    public void addLoyaltyPoints(int points) {
+        this.loyaltyPoints += points;
+    }
+
+    public int getLoyaltyPoints() {
+        return loyaltyPoints;
     }
 }
