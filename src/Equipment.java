@@ -1,3 +1,4 @@
+
 /**
  * A simple class representing a piece of equipment.
  * Its purpose is to be used inside other classes to demonstrate composition.

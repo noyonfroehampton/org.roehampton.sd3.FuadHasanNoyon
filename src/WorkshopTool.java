@@ -10,7 +10,7 @@ public class WorkshopTool extends BorrowableItem {
 
     // --- Properties ---
     private String powerType; // e.g., "Manual", "Electric", "Battery"
-    
+
     // For demonstrating Composition ("has-a" relationship)
     private List<Equipment> requiredEquipment;
 
@@ -24,10 +24,18 @@ public class WorkshopTool extends BorrowableItem {
     public WorkshopTool(String itemID, String name, String powerType) {
         // Call the constructor of the parent class (BorrowableItem) first.
         super(itemID, name);
-        
+
         // Initialize properties specific to this class.
         this.powerType = powerType;
         this.requiredEquipment = new ArrayList<>(); // Initialize the list as empty.
+    }
+
+    /**
+     * Getter method required for the Sprint 3 GUI to display details.
+     * @return The power type of the tool.
+     */
+    public String getPowerType() {
+        return powerType;
     }
 
     /**

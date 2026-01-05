@@ -1,7 +1,8 @@
+import javafx.application.Application;
+
 public class Main {
     public static void main(String[] args) {
-        // Use the Singleton instance
-        Library myLibrary = Library.getInstance();
-        myLibrary.startApplication();
+        // This launches the JavaFX GUI instead of the console menu
+        Application.launch(LibraryGUI.class, args);
     }
 }

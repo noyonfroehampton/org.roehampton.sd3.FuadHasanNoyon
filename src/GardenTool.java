@@ -22,6 +22,14 @@ public class GardenTool extends BorrowableItem {
         this.material = material;
     }
 
+    /**
+     * Getter method required for the Sprint 3 GUI to display details.
+     * @return The material of the tool.
+     */
+    public String getMaterial() {
+        return material;
+    }
+
     // --- Overridden Method ---
     /**
      * Provides a specific implementation for the print() method.

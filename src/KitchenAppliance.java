@@ -17,9 +17,17 @@ public class KitchenAppliance extends BorrowableItem {
     public KitchenAppliance(String itemID, String name, String capacity) {
         // Call the constructor of the parent class (BorrowableItem) first.
         super(itemID, name);
-        
+
         // Initialize the property specific to this class.
         this.capacity = capacity;
+    }
+
+    /**
+     * Getter method required for the Sprint 3 GUI to display details.
+     * @return The capacity of the appliance.
+     */
+    public String getCapacity() {
+        return capacity;
     }
 
     // --- Overridden Method ---
